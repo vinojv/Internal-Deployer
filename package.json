@@ -1,0 +1,17 @@
+{
+  "name": "Internal-Deployer",
+  "version": "1.0.0",
+  "description": "Webapp to manage deployment",
+  "main": "server.js",
+  "scripts": {
+    "test": "node server.js"
+  },
+  "author": "Sandeep S Kumar",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.10.4",
+    "shelljs": "^0.3.0",
+    "socket.io": "~1.2.1",
+    "filewatcher": "~2.0.1"
+  }
+}
