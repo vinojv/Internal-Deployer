@@ -44,8 +44,12 @@ angular.module('deployer', [ ])
         }
 
         socket.on('response', function (data) {
+            var res = $scope.logs + data;
+            res = res.split('\n');
+            res = _.last(res, 600).join('\n');
+            
         	$scope.$apply(function () {
-    			$scope.response += data;
+    			$scope.response = res;
     		});
     		updateScroll('stdout');
         });
@@ -59,9 +63,9 @@ angular.module('deployer', [ ])
         });
 
         socket.on('log', function (data) {
-        	logs = $scope.logs + data;
+        	var logs = $scope.logs + data;
         	logs = logs.split('\n');
-        	logs = _.last(logs, 350).join('\n');
+        	logs = _.last(logs, 600).join('\n');
 
         	if(!$scope.$$phase) {
         		$scope.$apply(function () {

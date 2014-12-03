@@ -1,6 +1,29 @@
 {
+    "port": "8090",
+    
     "server": {
-        "path": "/ebs/rest-server/",
-           
+        "path": "/ebs/rest-server/blazent/",
+        "port": "8081",
+        "build": {
+            "location": "gui/",
+            "command": "mvn clean install"
+        },
+        "jar": {
+            "location": "gui/target/",
+            "name": "rest-server-jar-with-dependencies.jar"
+        },
+        "logs": {
+            "location": "/var/log/blazent/",
+            "name": "services.log"
+        }
+    },
+    
+    "client": {
+        "path": "/ebs/app/blazent/",
+        "port": "8080",
+        "build": {
+            "dist": "gulp dist",
+            "min": "gulp minify"
+        }
     }
 }
