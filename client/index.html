@@ -18,25 +18,26 @@
     <body ng-controller="MainController">
 
         <header>
-            <h1>RZT Internal Deployer</h1>
+            <h1>Razorthink Deployer</h1>
         </header>
 
         <div class="main-wrapper">
 
             <div class="command-list">
 
-                <div class="command-group">
+                <!-- <div class="command-group">
                     <h3>SubVersion</h3>
                     <ul class="task-lists">
                         <li class="task-item"> <button class="btn btn-default" ng-click="sendCommandRequest('/actions/svn/update')">SVN Update</button> </li>
                     </ul>
                 </div>
 
-                <hr>
+                <hr> -->
 
                 <div class="command-group">
-                    <h3>Jetty Server</h3>
+                    <h3>REST Server</h3>
                     <ul class="task-lists">
+                        <li class="task-item"> <button class="btn btn-default" ng-click="sendCommandRequest('/actions/svn/update')">SVN Update</button> </li>
                         <li class="task-item"> <button class="btn btn-primary" ng-click="sendCommandRequest('/actions/server/build')">Server Build</button> </li>
                         <li class="task-item"> <button class="btn btn-success" ng-click="sendCommandRequest('/actions/server/restart')">Server Restart</button> </li>
                         <li class="task-item"> <button class="btn btn-warning" ng-click="sendCommandRequest('/actions/server/stop')">Server Stop</button> </li>
@@ -45,7 +46,7 @@
 
                 <hr>
 
-                <div class="command-group">
+                <!-- <div class="command-group">
                     <h3>MySQL</h3>
                     <ul class="task-lists">
                         <li class="task-item"> <button class="btn btn-default" ng-click="sendCommandRequest('/actions/mysql/restart')">Mysql Restart</button> </li>
@@ -53,10 +54,10 @@
                     </ul>
                 </div>
                 
-                <hr>
+                <hr> -->
 
                 <div class="command-group">
-                    <h3>Client App</h3>
+                    <h3>Web-App</h3>
                     <ui class="task-lists">
                         <li class="task-item"><button class="btn btn-default" ng-click="sendCommandRequest('/actions/git/pull')">Git Pull</button></li>
                         <li class="task-item"><button class="btn btn-default" ng-click="sendCommandRequest('/actions/gulp/dist')">Build App</button></li>
@@ -76,8 +77,14 @@
 
                 <div class="tab-wrapper">
                     <ul class="tabs">
-                        <li class="tab-item" ng-class="{active: isTerminalActive}" ng-click="switchTab('term')"> Terminal </li>
-                        <li class="tab-item" ng-class="{active: isLogActive}" ng-click="switchTab('log')"> Server Log </li>
+                        <li class="tab-item" ng-class="{active: isTerminalActive}" ng-click="switchTab('term')"> 
+                            Terminal 
+                            <button class="tab-clear" ng-click="clearTab('term')">Clear</button>
+                        </li>
+                        <li class="tab-item" ng-class="{active: isLogActive}" ng-click="switchTab('log')"> 
+                            Server Log 
+                            <button class="tab-clear" ng-click="clearTab('log')">Clear</button>
+                        </li>
                     </ul>
                 </div>
 

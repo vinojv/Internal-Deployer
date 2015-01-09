@@ -33,8 +33,14 @@ io.on('connection', function(socket) {
 function invokeCommand (cmd) {
 
     var child = shell.exec(cmd, {async:true});
+    
+    io.emit('response',  '\n'  +  cmd +  '\n');
 
     child.stdout.on('data', function(data) { 
+        io.emit('response', data);
+    });
+    
+    child.stderr.on('data', function(data) { 
         io.emit('response', data);
     });
 
@@ -62,6 +68,7 @@ var dispatcher = {
     '/actions/server/stop': function () {
         console.log('\n\n ==== Stopping Server ==== \n\n');
         var cmd = 'netstat -tupln | grep ' + config.server.port;
+        io.emit('response',  '\n'  +  cmd +  '\n');
         var child = shell.exec(cmd, {async: true});
         var netstat = '';
 
@@ -88,6 +95,7 @@ var dispatcher = {
     '/actions/server/restart': function () {
         console.log('\n\n ==== Restarting Server ==== \n\n');
         var cmd = 'netstat -tupln | grep ' + config.server.port;
+        io.emit('response',  '\n'  +  cmd +  '\n');
         var child = shell.exec(cmd, {async: true});
         var netstat = '';
 
@@ -110,6 +118,7 @@ var dispatcher = {
             + config.server.jar.location 
             + '; java -jar '
             + config.server.jar.name + ' &';
+            io.emit('response',  '\n'  +  cmd +  '\n');
             //            console.log('\n', cmd, '\n');
             var jetty = shell.exec(cmd, {async:true});
             var jettyResponse = '';

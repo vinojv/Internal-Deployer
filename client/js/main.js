@@ -1,78 +1,97 @@
 angular.module('deployer', [ ])
-    .controller('MainController', ['$scope', '$http', '$attrs',
-    function ($scope, $http, $attrs) {
+    .controller('MainController', [
+        '$scope', 
+        '$http', 
+        '$attrs',
 
-    	var socket = io();
-        
-        $scope.response = '';
-        $scope.logs = '';
+        function ($scope, $http, $attrs) {
 
-        $scope.isTerminalActive = true;
-
-        function updateScroll (elemClass) {
-        	var el = document.querySelector('.' + elemClass);
-        	el.scrollTop = el.scrollHeight + el.offsetTop;
-        }
-        
-        $scope.sendCommandRequest = function (url) {
-            socket.emit('command', url);
-            $scope.response = '';
-        };
-
-        $scope.sendCustomCommand = function () {
-        	socket.emit('custom-command', $scope.cmdText);
-        	$scope.cmdText = $scope.response = '';
-        };
-
-        $scope.sendOnEnter = function (e) {
-        	if (e.which == 13) {
-        		$scope.sendCustomCommand();
-        	}
-        };
-
-        $scope.switchTab = function (tab) {
-        	$scope.isTerminalActive = $scope.isLogActive = false;
-
-        	switch (tab) {
-        		case 'term':
-        			$scope.isTerminalActive = true;
-        			break;
-        		case 'log':
-        			$scope.isLogActive = true;
-        			break;
-        	}
-        }
-
-        socket.on('response', function (data) {
-            var res = $scope.logs + data;
-            res = res.split('\n');
-            res = _.last(res, 600).join('\n');
+        	var socket = io();
             
-        	$scope.$apply(function () {
-    			$scope.response = res;
-    		});
-    		updateScroll('stdout');
-        });
+            $scope.response = $scope.logs = '';
+            $scope.isTerminalActive = true;
 
-        socket.on('success', function () {
-        	if(!$scope.$$phase) {
-        		$scope.$apply(function () {
-        			$scope.status = 'Success';
+            function updateScroll (elemClass) {
+            	var el = document.querySelector('.' + elemClass);
+            	el.scrollTop = el.scrollHeight + el.offsetTop;
+            }
+            
+            $scope.sendCommandRequest = function (url) {
+                socket.emit('command', url);
+                $scope.response += '\n---------------------' 
+                    + new Date() 
+                    + '---------------------\n';
+            };
+
+            $scope.sendCustomCommand = function () {
+            	socket.emit('custom-command', $scope.cmdText);
+                $scope.cmdText = '';
+                $scope.response += '\n---------------------' 
+                   + new Date() 
+                   + '---------------------\n';
+            };
+
+            $scope.sendOnEnter = function (e) {
+            	if (e.which == 13) {
+            		$scope.sendCustomCommand();
+            	}
+            };
+
+            $scope.switchTab = function (tab) {
+            	$scope.isTerminalActive = $scope.isLogActive = false;
+
+            	switch (tab) {
+            		case 'term':
+            			$scope.isTerminalActive = true;
+            			break;
+            		case 'log':
+            			$scope.isLogActive = true;
+            			break;
+            	}
+            }
+
+            $scope.clearTab = function (tab) {
+                switch (tab) {
+                    case 'term':
+                        $scope.response = '';
+                        break;
+
+                    case 'log':
+                        $scope.logs = '';
+                        break;
+                }
+            };
+
+            socket.on('response', function (data) {
+                var res = $scope.response + data;
+                res = res.split('\n');
+                res = _.last(res, 600).join('\n');
+                
+            	$scope.$apply(function () {
+        			$scope.response = res;
         		});
-        	}
-        });
+        		updateScroll('stdout');
+            });
 
-        socket.on('log', function (data) {
-        	var logs = $scope.logs + data;
-        	logs = logs.split('\n');
-        	logs = _.last(logs, 600).join('\n');
+            socket.on('success', function () {
+            	if(!$scope.$$phase) {
+            		$scope.$apply(function () {
+            			$scope.status = 'Success';
+            		});
+            	}
+            });
 
-        	if(!$scope.$$phase) {
-        		$scope.$apply(function () {
-        			$scope.logs = logs;
-        		});
-        	}
-        	updateScroll('logs');
-        });
+            socket.on('log', function (data) {
+            	var logs = $scope.logs + data;
+            	logs = logs.split('\n');
+            	logs = _.last(logs, 600).join('\n');
+
+            	if(!$scope.$$phase) {
+            		$scope.$apply(function () {
+            			$scope.logs = logs;
+            		});
+            	}
+            	updateScroll('logs');
+            });
         
     }]);

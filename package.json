@@ -9,11 +9,9 @@
   "author": "Sandeep S Kumar",
   "license": "ISC",
   "dependencies": {
-    "bluebird": "^2.3.11",
-    "colors": "^1.0.3",
     "express": "^4.10.4",
-    "filewatcher": "~2.0.1",
     "shelljs": "^0.3.0",
-    "socket.io": "~1.2.1"
+    "socket.io": "~1.2.1",
+    "filewatcher": "~2.0.1"
   }
 }
