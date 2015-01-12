@@ -1,0 +1,9 @@
+{
+    "apps" : [{
+        "name"        : "Blazent Deployer",
+        "script"      : "server.js",
+        "log_date_format"  : "YYYY-MM-DD HH:mm Z",
+        "ignoreWatch" : ["[\\/\\\\]\\./", "node_modules", "client"],
+        "watch"       : true
+        }]
+}

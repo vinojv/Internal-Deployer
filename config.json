@@ -2,11 +2,11 @@
     "port": "8090",
     
     "server": {
-        "path": "/ebs/rest-server/blazent/",
+        "path": "/home/blazent/blazent-webapp/blazent/",
         "port": "8081",
         "build": {
             "location": "gui/",
-            "command": "mvn clean install"
+            "command": "mvn clean install -Dmode=testserver -P local-server"
         },
         "jar": {
             "location": "gui/target/",
@@ -19,7 +19,7 @@
     },
     
     "client": {
-        "path": "/ebs/app/blazent/",
+        "path": "/home/blazent/blazent-webapp/client/",
         "port": "8080",
         "build": {
             "dist": "gulp dist",
