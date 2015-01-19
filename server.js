@@ -188,10 +188,10 @@ var server = http.listen(8090, function() {
     var port = server.address().port;
 
     // var logFile = '/var/log/blazent/services.log';
-    var logFile = config.server.logs.location + config.server.logs.name;
+    // var logFile = config.server.logs.location + config.server.logs.name;
 
-    io.emit('log', 'Watching log file: ' + logFile);
-    logWatcher(logFile);
+    // io.emit('log', 'Watching log file: ' + logFile);
+    // logWatcher(logFile);
 
     console.log('Internal Deployer listening at http://%s:%s', host, port);
 
