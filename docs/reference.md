@@ -53,16 +53,69 @@ REST    =>    Central Dispatcher    =>    Agents
 
 
 
-##	Routes
+##	Schema
 
-* POST /auth/login *  
-	REQ:	` { email: 'string', password: 'string' } `  
-	RES:	` { id: 'string', email: 'string', name: 'string' } `  
+#### Companies
+```javascript
+{
+	id: 'ObjectID',
+	name: 'String',
+	users: ['UserID'], // user belonging to the company
+	agents: ['AgentID'] // agents deployed by the company (one per host)
+}
+```
 
-* GET /auth/logout *
-	RES:	` CODE `
+#### Users
+```javascript
+{
+	id: 'ObjectID',
+	name: 'String',
+	email: 'String',
+	company: 'CompanyID', // company that the user belongs to
+	agents: ['AgentID'] // agents that the user has access to
+}
+```
 
-*  *
+#### Hosts
+```javascript
+{
+	id: 'ObjectID',
+	name: 'String', // host or instance name
+	cpu: 'String', // CPU model
+	cores: 'Number', // number of CPU cores
+	memory: 'Number', // total host memory in GBs,
+	os: 'String' // host operating system name
+}
+```
+
+
+#### Agents
+```javascript
+{
+	id: 'ObjectID',
+	host: 'HostID',
+	company: 'CompanyID',
+	users: ['UserID']
+}
+```
+
+#### Processes
+```javascript
+{
+	id: 'ObjectID',
+	pid: 'string', // process's PID
+	user: 'UserID', // user that forked this process
+	agent: 'AgentID'
+}
+```
+
+#### Monitors
+```javascript
+{
+	id: 'ObjectID',
+	processes: ['ProcessID'],
+	agent: 'AgentID'
+}
 
 
 

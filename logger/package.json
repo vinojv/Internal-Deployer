@@ -1,0 +1,14 @@
+{
+  "name": "rzt-logger",
+  "version": "0.0.1",
+  "description": "UDP logger running statsd",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "author": "Sandeep S Kumar",
+  "license": "ISC",
+  "dependencies": {
+    "statsd": "^0.7.2"
+  }
+}

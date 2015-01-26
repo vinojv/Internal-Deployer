@@ -1,0 +1,18 @@
+{
+  "name": "Deployer",
+  "version": "1.0.0",
+  "description": "Webapp to manage deployment",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "author": "Sandeep S Kumar",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "express": "^4.10.4",
+    "mongoose": "*",
+    "mongoskin": "*",
+    "socket.io": "~1.2.1"
+  }
+}
