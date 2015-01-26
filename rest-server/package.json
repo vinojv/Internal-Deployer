@@ -4,15 +4,17 @@
   "description": "Webapp to manage deployment",
   "main": "index.js",
   "scripts": {
-    "test": "node index.js"
+    "start": "node index.js"
   },
   "author": "Sandeep S Kumar",
   "license": "ISC",
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "express": "^4.10.4",
-    "mongoose": "*",
-    "mongoskin": "*",
-    "socket.io": "~1.2.1"
+    "lodash": "^2.4.1",
+    "mongoose": "^3.8.22",
+    "mongoskin": "^1.4.12",
+    "socket.io": "~1.2.1",
+    "underscore.string": "^3.0.2"
   }
 }

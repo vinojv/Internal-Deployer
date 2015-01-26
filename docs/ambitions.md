@@ -37,3 +37,6 @@ term.js
 cron
 passport
 glob
+
+### client
+move.js

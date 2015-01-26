@@ -5,7 +5,7 @@ var bcrypt = require('bcrypt-nodejs');
 var Schema = mongoose.Schema;
 var Types = Schema.Types;
 
-var userSchema = new Schema({
+var UserSchema = new Schema({
     username: { type: String, required: true, unique: true },
     password: { type: String, require: true },
     company: { type: Types.ObjectId, ref: 'Company' }, // company that the user belongs to
@@ -44,5 +44,5 @@ UserSchema.methods.verifyPassword = function(password, cb) {
     });
 };
 
-exports.schema = userSchema;
+exports.schema = UserSchema;
 exports.model = mongoose.model('User', exports.schema);
