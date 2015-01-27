@@ -19,5 +19,9 @@ module.exports = {
     
     "models": {
         "path": path.join(rootDir, 'models')
+    },
+    
+    "controllers": {
+        "path": path.join(rootDir, 'controllers')
     }
 };
