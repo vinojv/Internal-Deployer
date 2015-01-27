@@ -4,6 +4,7 @@
 
 var express = require('express');
 var mongoose = require('mongoose');
+var bodyParser = require('body-parser');
 var _ = require('lodash');
 var path = require('path');
 var model = require('./models');
@@ -20,6 +21,12 @@ module.exports = function (config) {
     app.set('rootPath', config.rootPath);
     app.set('port', config.server.port);
     
+    // parse application/x-www-form-urlencoded
+    app.use(bodyParser.urlencoded({ extended: true }));
+
+    // parse application/json
+    app.use(bodyParser.json());
+    
     // create models from definitions in models directory 
     model.createModels(config);
     
@@ -32,12 +39,8 @@ module.exports = function (config) {
     // create controllers from definitions in controllers directory
     controller.createControllers(config, app);
     
-    // expose method to create and register new controllers
-    app.controller = app.Controller = controller.createController;
-    
     // make controllers available as a property of app
     app.controllers = controller.controllers;
-    
     
     return app;
     

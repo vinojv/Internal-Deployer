@@ -1,5 +1,4 @@
 var config = require('./config');
-
 var server = require('./lib/server');
 
 var app = server(config);
@@ -22,7 +21,6 @@ var server = app.listen(app.get('port'), function () {
 //var Event = app.models.event;
 //Event.create({ name : "Some event name" }, function (err, event) { console.log(event) });
 
-app.use(app.controllers.company);
-
+app.use(app.controllers.companies);
 
 module.exports = app;
