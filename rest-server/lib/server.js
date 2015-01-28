@@ -10,6 +10,9 @@ var path = require('path');
 var model = require('./models');
 var boot = require('./boot');
 var controller = require('./controllers');
+var passport = require('passport');
+var session = require('express-session');
+var passportSetUp = require('../config/passport');
 
 module.exports = function (config) {
     
@@ -21,21 +24,37 @@ module.exports = function (config) {
     app.set('rootPath', config.rootPath);
     app.set('port', config.server.port);
     
+    // create models from definitions in models directory 
+    model.createModels(config);
+    
+    // make models available as a property of app
+    app.models = model.models;
+    
     // parse application/x-www-form-urlencoded
     app.use(bodyParser.urlencoded({ extended: true }));
 
     // parse application/json
     app.use(bodyParser.json());
     
-    // create models from definitions in models directory 
-    model.createModels(config);
+    // enable sessions
+    app.use(session({ 
+        secret: 'razorthink-deployer',
+        resave: false,
+        saveUninitialized: true
+    }));
+    
+    // configure passport module
+    passportSetUp(app, config);
+    
+    // register passport module with application
+    app.use(passport.initialize());
+    
+    // allow passport to maintain session
+    app.use(passport.session());
     
     // expose method to create and register new models
     app.model = app.Model = model.createModel;
 
-    // make models available as a property of app
-    app.models = model.models;
-    
     // create controllers from definitions in controllers directory
     controller.createControllers(config, app);
     

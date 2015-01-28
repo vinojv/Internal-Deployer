@@ -16,11 +16,9 @@ var server = app.listen(app.get('port'), function () {
     
 });
 
-//app.model('Event', { name: { type: String, unique: true } });
-//
-//var Event = app.models.event;
-//Event.create({ name : "Some event name" }, function (err, event) { console.log(event) });
-
-app.use(app.controllers.companies);
+app.use(app.controllers.auth());
+app.use(app.controllers.companies());
+app.use(app.controllers.agents());
+app.use(app.controllers.users());
 
 module.exports = app;

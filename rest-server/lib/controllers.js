@@ -24,7 +24,7 @@ var createControllers = exports.createControllers =
             // load controller module present in file
             var controllerModule = require(path.join(controllersDir, file));
             
-            var controllerName = path.basename(file, '.js');
+            var controllerName = path.basename(file, '.controller.js');
 
             // get the model name exposed by module in both camel and pascal case
             var pascalCaseName = _string.classify(controllerName);
