@@ -12,13 +12,41 @@ module.exports = function (app, router) {
         
         .post(route + '/signup', function (req, res) {
             
-            User.create({
-                username: req.body.username,
-                password: req.body.password
-            }, function (err, user) {
-                if (err) return res.send(err);
-                res.json({ username: user.username, _id: user._id });
-            });
+            Company.findOne({ name: req.body.company }).exec()
+            .then(function (company) {
+                // if a company exists in the db, then throw error and break chain
+                if (company) {
+                    throw 'A company with that name exists.' 
+                         + ' If you\'re a member of the same company,'
+                         + ' then you may ask an existing member to add you.';
+                }
+                
+                // else create a new company by that name
+                return Company.create({ name: req.body.company });
+            })
+            .then(function (company) {
+                // create a new user with the details provided
+                return User.create({
+                    username: req.body.username,
+                    password: req.body.password,
+                    company: company._id
+                })
+            })
+            .then(function (user) {
+                // add user to list of users of that company
+                Company.findByIdAndUpdate(
+                    user.company,
+                    { $push: { users: user._id } }
+                ).exec()
+            })
+            .then(
+                function (data) {
+                    res.json({ username: req.body.username });
+                },
+                function (err) {
+                    res.send(err);
+                }
+            );
 
         })
 
