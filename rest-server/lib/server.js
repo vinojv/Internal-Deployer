@@ -13,11 +13,19 @@ var controller = require('./controllers');
 var passport = require('passport');
 var session = require('express-session');
 var passportSetUp = require('../config/passport');
+var io = require('socket.io');
 
 module.exports = function (config) {
+
+    // set process title
+    process.title = "Deployer";
     
     var app = express();
+
+    // expose socket io as a property of app
+    app.io = io(app);
     
+    // perform boot actions
     app = boot(app, config);
     
     app.set('title', 'Deployer REST Server');

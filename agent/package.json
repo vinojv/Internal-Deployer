@@ -1,0 +1,20 @@
+{
+  "name": "deployer-agent",
+  "version": "1.0.0",
+  "description": "Deployer agent that will be deployed in remote host to collect data and stats about that host.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js -u test-agent -p test-agent",
+  },
+  "author": "Sandeep S Kumar",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^0.5.1",
+    "commander": "^2.6.0",
+    "passport-http": "^0.2.2",
+    "q": "^1.1.2",
+    "request": "^2.51.0",
+    "term.js": "0.0.4",
+    "ws": "^0.7.1"
+  }
+}

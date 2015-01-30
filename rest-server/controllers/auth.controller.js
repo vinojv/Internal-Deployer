@@ -30,18 +30,18 @@ module.exports = function (app, router) {
                     username: req.body.username,
                     password: req.body.password,
                     company: company._id
-                })
+                });
             })
             .then(function (user) {
                 // add user to list of users of that company
-                Company.findByIdAndUpdate(
+                return Company.findByIdAndUpdate(
                     user.company,
                     { $push: { users: user._id } }
-                ).exec()
+                ).exec();
             })
             .then(
-                function (data) {
-                    res.json({ username: req.body.username });
+                function (company) {
+                    res.json({ username: req.body.username, company: company.name });
                 },
                 function (err) {
                     res.send(err);
@@ -53,6 +53,13 @@ module.exports = function (app, router) {
         .post(
             route + '/login', 
             passport.authenticate('local'),
+            function (req, res) {
+                res.json({ username: req.user.username, _id: req.user._id });
+            }
+        )
+
+        .get('/api/authenticate', 
+            passport.authenticate('basic'),
             function (req, res) {
                 res.json({ username: req.user.username, _id: req.user._id });
             }

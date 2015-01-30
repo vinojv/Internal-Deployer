@@ -2,6 +2,8 @@ var passport = require('passport');
 var ensureAuthenticated = require('../utils').ensureAuthenticated;
 var sendDbResponse = require('../utils').sendDbResponse;
 
+/* TODO: A user must be able to see and manipulate only the company related to him */
+
 module.exports = function (app, router) {
     
     return function () {
