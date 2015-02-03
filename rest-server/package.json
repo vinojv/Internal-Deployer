@@ -17,6 +17,7 @@
     "mongoskin": "^1.4.12",
     "passport": "^0.2.1",
     "passport-local": "^1.0.0",
+    "sessionstore": "^1.0.5",
     "socket.io": "~1.2.1",
     "underscore.string": "^3.0.2"
   }

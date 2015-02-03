@@ -61,6 +61,7 @@ module.exports = function (app, router) {
         .get('/api/authenticate', 
             passport.authenticate('basic'),
             function (req, res) {
+                Company.find()
                 res.json({ username: req.user.username, _id: req.user._id });
             }
         )

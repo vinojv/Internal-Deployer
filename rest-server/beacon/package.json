@@ -1,0 +1,14 @@
+{
+  "name": "deployer-beacon",
+  "version": "1.0.0",
+  "description": "This is the central beacon module that all agents will communicate with",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sandeep S Kumar",
+  "license": "ISC",
+  "dependencies": {
+    "socket.io": "^1.3.2"
+  }
+}

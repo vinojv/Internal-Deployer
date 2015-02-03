@@ -23,5 +23,10 @@ module.exports = {
     
     "controllers": {
         "path": path.join(rootDir, 'controllers')
+    },
+    
+    "session": {
+        "secret": 'razorthink-deployer',
+        "collection": 'sessions'
     }
 };

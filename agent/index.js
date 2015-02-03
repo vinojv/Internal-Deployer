@@ -11,9 +11,11 @@ var commander = require('commander');
 var chalk = require('chalk');
 var q = require('q');
 var config = require('./config');
+var Agent = require('./lib/agent');
 
 var authentication = q.defer();
 var isAuthenticated = authentication.promise;
+var agent;
 
 
 commander
@@ -60,6 +62,7 @@ isAuthenticated.then(
             '\b. Agent will now initialize.'));
         
         // TODO: perform agent init
+        agent = new Agent(config, user);
     },
     
     // auth failed

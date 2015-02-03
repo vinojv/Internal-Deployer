@@ -13,17 +13,15 @@ var controller = require('./controllers');
 var passport = require('passport');
 var session = require('express-session');
 var passportSetUp = require('../config/passport');
-var io = require('socket.io');
+var sessionstore = require('sessionstore');
 
 module.exports = function (config) {
 
     // set process title
-    process.title = "Deployer";
+    process.title = "deployer";
     
+    // get express application
     var app = express();
-
-    // expose socket io as a property of app
-    app.io = io(app);
     
     // perform boot actions
     app = boot(app, config);
@@ -46,9 +44,17 @@ module.exports = function (config) {
     
     // enable sessions
     app.use(session({ 
-        secret: 'razorthink-deployer',
+        secret: config.session.secret,
         resave: false,
-        saveUninitialized: true
+        saveUninitialized: true,
+        store: sessionstore.createSessionStore({
+            type: 'mongodb',
+            host: config.datasource.location,
+            port: config.datasource.port,
+            dbName: config.datasource.database,
+            collectionName: config.session.collection,
+            timeout: 10000
+        })
     }));
     
     // configure passport module
